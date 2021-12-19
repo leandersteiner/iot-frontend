@@ -7,7 +7,9 @@ export const generateGraph = (root, date, data) => {
   }
   root.appendChild(canvas);
 
-  const formated = data.map((data) => ({
+  const sortedData = data.sort((a, b) => a.date - b.date);
+
+  const formated = sortedData.map((data) => ({
     rate: data.rate,
     date: new Date(data.date * 1000),
   }));

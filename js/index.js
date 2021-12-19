@@ -4,15 +4,25 @@ import { generateGraph } from './graph.js';
 const url = 'https://iot.lsteiner.dev/api/';
 
 const root = document.querySelector('#content');
+const dateFilter = document.querySelector('#date');
 
-const getHeartRates = async () => {
-  const data = await get(`${url}heartrate`);
-  generateGraph(root, data);
+const today = new Date().toISOString().split('T')[0];
+dateFilter.setAttribute('max', today);
+dateFilter.setAttribute('value', today);
+
+const getHeartRates = () => {
+  return get(`${url}heartrate`);
 };
 
-getHeartRates();
+const refreshGraph = async () => {
+  const data = await getHeartRates();
+  generateGraph(root, dateFilter.value, data);
+};
 
-setInterval(() => {
-  console.log('Updated Graph');
-  getHeartRates();
-}, 30000);
+dateFilter.addEventListener('change', async () => {
+  generateGraph(root, dateFilter.value, await getHeartRates());
+});
+
+setInterval(refreshGraph, 15000);
+
+refreshGraph();

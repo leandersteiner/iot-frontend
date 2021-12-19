@@ -1,4 +1,4 @@
-export const generateGraph = (root, data) => {
+export const generateGraph = (root, date, data) => {
   const canvas = document.createElement('canvas');
   canvas.id = 'chart';
 
@@ -9,11 +9,15 @@ export const generateGraph = (root, data) => {
 
   const formated = data.map((data) => ({
     rate: data.rate,
-    date: new Date(data.date * 1000).toLocaleString(),
+    date: new Date(data.date * 1000),
   }));
 
-  const chartLabels = formated.map((data) => data.date);
-  const chartData = formated.map((data) => data.rate);
+  const filteredData = filterData(formated, date);
+
+  const chartLabels = filteredData.map((data) =>
+    data.date.toLocaleTimeString()
+  );
+  const chartData = filteredData.map((data) => data.rate);
   const chartBackgrounds = chartData.map((data) =>
     data > 100.0 ? 'rgba(220, 40, 50, 1)' : 'rgba(40, 220, 50, 1)'
   );
@@ -38,4 +42,12 @@ export const generateGraph = (root, data) => {
       },
     },
   });
+};
+
+const filterData = (data, date) => {
+  const filterDate = new Date(date);
+  const filteredData = data.filter(
+    (data) => filterDate.toLocaleDateString() == data.date.toLocaleDateString()
+  );
+  return filteredData;
 };

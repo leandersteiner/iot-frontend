@@ -1,3 +1,7 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 *,
 *::before,
 *::after {
@@ -6,7 +10,22 @@
   padding: 0;
 }
 
-#chart {
-  max-width: 100vw;
+main {
   max-height: 100vh;
+}
+
+#filter {
+  text-align: center;
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#filter label {
+  font-size: 1.5rem;
+}
+
+#chart {
+  max-height: 50rem;
 }

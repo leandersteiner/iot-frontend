@@ -32,7 +32,7 @@ export const generateGraph = (root, date, data) => {
         {
           label: 'Heart Rate',
           data: chartData,
-          backgroundColor: rgba(40, 220, 50, 1),
+          backgroundColor: 'rgba(40, 220, 50, 1)',
         },
       ],
     },
